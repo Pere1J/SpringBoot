@@ -2,10 +2,7 @@ package com.myFirstApi.first.controllers;
 
 
 import com.myFirstApi.first.models.Book;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getId(@PathVariable UUID id){
+    public Book getId(@PathVariable UUID id) {
 //        for (Book item:this.booksDB) {
 //            if (item.getId().equals(id))
 //                return item;
@@ -41,8 +38,38 @@ public class BookController {
 //        return null;
 
         var book = this.booksDB.stream()
-                        .filter(item -> item.getId().equals(id))
-                        .findFirst().get();
+                .filter(item -> item.getId().equals(id))
+                .findFirst().get();
         return book;
     }
+
+    @PostMapping
+    public Book create(@RequestBody Book book) {
+        this.booksDB.add(book);
+        return book;
+    }
+
+    @DeleteMapping("/{id}")
+    public Book deleteById(@PathVariable UUID id) {
+        for (Book item : this.booksDB) {
+            if (item.getId().equals(id)) {
+                this.booksDB.remove(item);
+                return item;
+            }
+
+        } return null;
+    }
+    @PutMapping("/{id}")
+    public Book updateById(@PathVariable UUID id, @RequestBody Book book){
+        for (Book item:this.booksDB
+             ) { if (item.getId().equals(id)){
+                 item.setTitle(book.getTitle());
+                 return item;
+        }
+            
+        }
+        return null;
+
+    }
+
 }
