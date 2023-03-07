@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/books")
+@CrossOrigin ("*")
 public class BookController {
 
     List<Book> booksDB = new ArrayList<>(
