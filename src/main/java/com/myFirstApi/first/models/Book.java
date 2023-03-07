@@ -34,12 +34,36 @@ public class Book {
         return title;
     }
 
+    public boolean isLoaned() {
+        return isLoaned;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public void setLoaned(boolean loaned) {
+        isLoaned = loaned;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 }
 
