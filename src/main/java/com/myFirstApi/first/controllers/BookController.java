@@ -16,7 +16,7 @@ public class BookController {
     List<Book> booksDB = new ArrayList<>(
             //List.of(new Book("Emma"), new Book("Tintín"))
             List.of(new Book("Emma",true,"Jane Austen", "https://kbimages1-a.akamaihd.net/1ea81b28-2fa1-4796-b9b0-710123b48227/353/569/90/False/emma-503.jpg"),
-                    new Book("Tintín", false, "Hergè", "https://zephyrum.es/348-large_default/tintin-i-milu-gran-album-de-jocs.jpg"),
+                    new Book("Tintín", false, "Hergè", "https://papersgirona.com/wp-content/webpc-passthru.php?src=https://papersgirona.com/wp-content/uploads/2020/07/IMG_0022.jpg&nocache=1"),
                     new Book("Conan", false, "Howard", "https://m.media-amazon.com/images/I/712C4wexOxL.jpg"),
                     new Book("Drácula", true, "Bram Stoker", "https://imagessl6.casadellibro.com/a/l/t7/36/9788415618836.jpg "),
                     new Book("Tarzán", false, "Edward Rice Burroughs", "https://pictures.abebooks.com/isbn/9780307131942-es.jpg"),
