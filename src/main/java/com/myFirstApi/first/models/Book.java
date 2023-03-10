@@ -34,7 +34,7 @@ public class Book {
         return title;
     }
 
-    public boolean isLoaned() {
+    public boolean getIsLoaned() {
         return isLoaned;
     }
 
@@ -54,8 +54,8 @@ public class Book {
         this.id = id;
     }
 
-    public void setLoaned(boolean loaned) {
-        isLoaned = loaned;
+    public void setIsLoaned(boolean isLoaned) {
+        this.isLoaned = isLoaned;
     }
 
     public void setAuthor(String author) {
