@@ -1,14 +1,13 @@
 package com.myFirstApi.first.repositories;
 
 import com.myFirstApi.first.models.Book;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Repository
+
 public class BookInMemoryRepository2 implements IBookRepository{
     List<Book> booksDB = new ArrayList<>(
             //List.of(new Book("Emma"), new Book("Tintín"))
@@ -31,7 +30,7 @@ public class BookInMemoryRepository2 implements IBookRepository{
     @Override
     public Book findById(UUID id){
         return this.booksDB.stream()
-                .filter(item -> item.getId().equals(id))
+                .filter(item -> item.getUuid().equals(id))
                 .findFirst().get();
 
     }
@@ -43,7 +42,7 @@ public class BookInMemoryRepository2 implements IBookRepository{
     @Override
     public Book deleteItem(UUID id){
         for (Book item : this.booksDB) {
-            if (item.getId().equals(id)) {
+            if (item.getUuid().equals(id)) {
                 this.booksDB.remove(item);
                 return item;
             }
@@ -55,7 +54,7 @@ public class BookInMemoryRepository2 implements IBookRepository{
     public Book updateItem(UUID id, Book book){
 
         for (Book item:this.booksDB
-        ) { if (item.getId().equals(id)){
+        ) { if (item.getUuid().equals(id)){
             item.setTitle(book.getTitle());
             return item;
         }

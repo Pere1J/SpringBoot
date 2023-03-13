@@ -1,33 +1,51 @@
 package com.myFirstApi.first.models;
 
+import jakarta.persistence.*;
+
 import java.util.UUID;
 
+@Entity
+
+
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private String title;
-    private UUID id;
+    private UUID uuid;
     private boolean isLoaned;
     private String author;
     private String coverUrl;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Book() {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
     }
 
     public Book(String title) {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
         this.title = title;
     }
 
     public Book(String title, boolean isLoaned, String author, String coverUrl) {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
         this.title = title;
         this.isLoaned = isLoaned;
         this.author = author;
         this.coverUrl= coverUrl;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getUuid() {
+        return uuid;
     }
 
     public String getTitle() {
@@ -50,8 +68,8 @@ public class Book {
         this.title = title;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public void setIsLoaned(boolean isLoaned) {

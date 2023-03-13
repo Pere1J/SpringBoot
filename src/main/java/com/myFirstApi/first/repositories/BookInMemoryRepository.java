@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+@Repository
 
 public class BookInMemoryRepository implements IBookRepository {
     List<Book> booksDB = new ArrayList<>(
@@ -30,7 +31,7 @@ public class BookInMemoryRepository implements IBookRepository {
     @Override
     public Book findById(UUID id){
         return this.booksDB.stream()
-                .filter(item -> item.getId().equals(id))
+                .filter(item -> item.getUuid().equals(id))
                 .findFirst().get();
 
     }
@@ -42,7 +43,7 @@ public class BookInMemoryRepository implements IBookRepository {
      @Override
      public Book deleteItem(UUID id){
          for (Book item : this.booksDB) {
-             if (item.getId().equals(id)) {
+             if (item.getUuid().equals(id)) {
                  this.booksDB.remove(item);
                  return item;
              }
@@ -54,7 +55,7 @@ public class BookInMemoryRepository implements IBookRepository {
      public Book updateItem(UUID id, Book book){
 
          for (Book item:this.booksDB
-         ) { if (item.getId().equals(id)){
+         ) { if (item.getUuid().equals(id)){
              item.setTitle(book.getTitle());
              return item;
          }
