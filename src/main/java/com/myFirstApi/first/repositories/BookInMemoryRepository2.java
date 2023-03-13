@@ -1,17 +1,18 @@
 package com.myFirstApi.first.repositories;
 
 import com.myFirstApi.first.models.Book;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class BookRepository {
+@Repository
+public class BookInMemoryRepository2 implements IBookRepository{
     List<Book> booksDB = new ArrayList<>(
             //List.of(new Book("Emma"), new Book("Tintín"))
-            List.of(new Book("Emma",true,"Jane Austen", "https://kbimages1-a.akamaihd.net/1ea81b28-2fa1-4796-b9b0-710123b48227/353/569/90/False/emma-503.jpg"),
+            List.of(new Book("Manola",true,"Jane Austen", "https://kbimages1-a.akamaihd.net/1ea81b28-2fa1-4796-b9b0-710123b48227/353/569/90/False/emma-503.jpg"),
                     new Book("Tintín", false, "Hergè", "https://papersgirona.com/wp-content/webpc-passthru.php?src=https://papersgirona.com/wp-content/uploads/2020/07/IMG_0022.jpg&nocache=1"),
                     new Book("Conan", false, "Howard", "https://m.media-amazon.com/images/I/712C4wexOxL.jpg"),
                     new Book("Drácula", true, "Bram Stoker", "https://imagessl6.casadellibro.com/a/l/t7/36/9788415618836.jpg "),
@@ -23,46 +24,50 @@ public class BookRepository {
             )
     );
 
+    @Override
     public List<Book> findAll() {
         return this.booksDB;
     }
-    public Book findById (UUID id){
+    @Override
+    public Book findById(UUID id){
         return this.booksDB.stream()
                 .filter(item -> item.getId().equals(id))
                 .findFirst().get();
 
     }
+    @Override
     public Book save(Book book){
         this.booksDB.add(book);
         return book;
     }
-     public Book deleteItem(UUID id){
-         for (Book item : this.booksDB) {
-             if (item.getId().equals(id)) {
-                 this.booksDB.remove(item);
-                 return item;
-             }
+    @Override
+    public Book deleteItem(UUID id){
+        for (Book item : this.booksDB) {
+            if (item.getId().equals(id)) {
+                this.booksDB.remove(item);
+                return item;
+            }
 
-         } return null;
+        } return null;
 
-     }
-     public Book updateItem(UUID id, Book book){
+    }
+    @Override
+    public Book updateItem(UUID id, Book book){
 
-         for (Book item:this.booksDB
-         ) { if (item.getId().equals(id)){
-             item.setTitle(book.getTitle());
-             return item;
-         }
+        for (Book item:this.booksDB
+        ) { if (item.getId().equals(id)){
+            item.setTitle(book.getTitle());
+            return item;
+        }
 
-         }
-         return null;
-     }
-     public List<Book> searchItem(String title){
-         var filteredBooks = this.booksDB.stream()
-                 .filter(item -> item.getTitle().toLowerCase().contains(title.toLowerCase()))
-                 .collect(Collectors.toList());
-         return filteredBooks;
-     }
-
-
+        }
+        return null;
+    }
+    @Override
+    public List<Book> searchItem(String title){
+        var filteredBooks = this.booksDB.stream()
+                .filter(item -> item.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toList());
+        return filteredBooks;
+    }
 }

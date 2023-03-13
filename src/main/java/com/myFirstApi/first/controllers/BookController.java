@@ -2,57 +2,55 @@ package com.myFirstApi.first.controllers;
 
 
 import com.myFirstApi.first.models.Book;
-import com.myFirstApi.first.repositories.BookRepository;
+import com.myFirstApi.first.repositories.BookInMemoryRepository;
+import com.myFirstApi.first.repositories.IBookRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/books")
 @CrossOrigin ("*")
 public class BookController {
 
-    private final BookRepository bookRepository = new BookRepository();
+    private final IBookRepository bookInMemoryRepository;
 
+    public BookController(IBookRepository bookInMemoryRepository) {
+        this.bookInMemoryRepository = bookInMemoryRepository;
+    } //Inyección de dependencias por constructor
 
-    @GetMapping("/check")
-    public String check() {
-        return "ok";
-    }
 
     @GetMapping
     public List<Book> getAll() {
 
-        return this.bookRepository.findAll();
+        return this.bookInMemoryRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public Book getId(@PathVariable UUID id) {
-        return this.bookRepository.findById(id);
+        return this.bookInMemoryRepository.findById(id);
 
     }
 
     @PostMapping
     public Book create(@RequestBody Book book) {
-        return this.bookRepository.save(book);
+        return this.bookInMemoryRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
     public Book deleteById(@PathVariable UUID id) {
-        return this.bookRepository.deleteItem(id);
+        return this.bookInMemoryRepository.deleteItem(id);
     }
     @PutMapping("/{id}")
     public Book updateById(@PathVariable UUID id, @RequestBody Book book){
-        return  this.bookRepository.updateItem(id, book);
+        return  this.bookInMemoryRepository.updateItem(id, book);
     }
 
     @GetMapping ("search")
     public List<Book> searchBy (@RequestParam("title") String title){
 
-        return this.bookRepository.searchItem(title);
+        return this.bookInMemoryRepository.searchItem(title);
     }
 
 }
